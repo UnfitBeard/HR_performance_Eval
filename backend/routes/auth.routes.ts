@@ -1,9 +1,9 @@
 import pool from '../database/db.config';
-import { asyncHandler } from './../middlewares/asyncHandler';
 import express, { Request, Response, NextFunction } from 'express'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
+import asyncHandler from '../middlewares/asyncHandler';
 
 dotenv.config()
 
@@ -67,7 +67,6 @@ router.post("/login", asyncHandler(async (req: Request, res: Response, next: Nex
         const payload = ({
             name: personExists.rows[0].name,
             role: personExists.rows[0].role,
-            password: personExists.rows[0].password
         })
 
         //Generate token
@@ -78,6 +77,7 @@ router.post("/login", asyncHandler(async (req: Request, res: Response, next: Nex
             user: {
                 name: personExists.rows[0].name,
                 role: personExists.rows[0].role,
+                email: personExists.rows[0].email
             }
         })
 
